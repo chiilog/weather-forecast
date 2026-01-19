@@ -475,8 +475,8 @@ const queryClient = new QueryClient({
         if (error instanceof ApiError && error.status >= 400 && error.status < 500) {
           return false;
         }
-        // それ以外のエラー（5xx、ネットワークエラー等）は1回までリトライ
-        return failureCount < 1;
+        // それ以外のエラー（5xx、ネットワークエラー等）は1回までリトライ（計2回試行）
+        return failureCount < 2;
       },
     },
   },

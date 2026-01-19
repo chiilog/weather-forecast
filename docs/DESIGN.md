@@ -380,12 +380,7 @@ export function useWeather(cityId: string) {
 
   return useQuery<FormattedWeather[], Error>({
     queryKey: ['weather', cityId],
-    queryFn: () => {
-      if (!city) {
-        throw new Error('Invalid city ID');
-      }
-      return fetchWeather(city.nameEn);
-    },
+    queryFn: () => fetchWeather(city!.nameEn),
     enabled: !!city,
   });
 }

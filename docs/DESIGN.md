@@ -343,13 +343,21 @@ import { formatDateTime } from '../utils/date';
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5';
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
+// ステータスコードを含むカスタムエラー
+export class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message);
+    this.name = 'ApiError';
+  }
+}
+
 export async function fetchWeather(cityNameEn: string): Promise<FormattedWeather[]> {
   const url = `${API_BASE_URL}/forecast?q=${cityNameEn}&units=metric&lang=ja&APPID=${API_KEY}`;
 
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`API Error: ${response.status}`);
+    throw new ApiError(response.status, `API Error: ${response.status}`);
   }
 
   const data: WeatherApiResponse = await response.json();
@@ -455,12 +463,21 @@ User Action          Component           Hook              API
 ### 8.1 TanStack Query設定
 
 ```typescript
+import { ApiError } from './api/weather';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 10,  // 10分間キャッシュを新鮮とみなす
       gcTime: 1000 * 60 * 30,     // 30分間キャッシュを保持
-      retry: 1,                   // リトライ1回
+      retry: (failureCount, error) => {
+        // 4xx系エラーはリトライしない（クライアントエラーは再試行しても解決しない）
+        if (error instanceof ApiError && error.status >= 400 && error.status < 500) {
+          return false;
+        }
+        // それ以外のエラー（5xx、ネットワークエラー等）は1回までリトライ
+        return failureCount < 1;
+      },
     },
   },
 });

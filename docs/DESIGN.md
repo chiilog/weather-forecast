@@ -356,7 +356,7 @@ export async function fetchWeather(cityNameEn: string): Promise<FormattedWeather
   return data.list.map(item => ({
     dateTime: formatDateTime(item.dt),
     temp: Math.round(item.main.temp),
-    iconUrl: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
+    iconUrl: item.weather?.[0]?.icon ? `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png` : '',
   }));
 }
 ```

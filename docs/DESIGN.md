@@ -210,7 +210,7 @@ return <WeatherList data={data} />;
 // 構造
 <ul>
   {data.map((item, index) => (
-    <WeatherListItem key={index} weather={item} />
+    <WeatherListItem key={`${item.dt}-${index}`} weather={item} />
   ))}
 </ul>
 ```
@@ -291,6 +291,7 @@ export interface WeatherItem {
 
 // 整形後のデータ（UI表示用）
 export interface FormattedWeather {
+  dt: number;          // Unix timestamp（key用）
   dateTime: string;    // "1/20 12:00"
   temp: number;        // 25
   iconUrl: string;     // "https://openweathermap.org/img/wn/01d@2x.png"
@@ -354,6 +355,7 @@ export async function fetchWeather(cityNameEn: string): Promise<FormattedWeather
   const data: WeatherApiResponse = await response.json();
 
   return data.list.map(item => ({
+    dt: item.dt,
     dateTime: formatDateTime(item.dt),
     temp: Math.round(item.main.temp),
     iconUrl: item.weather?.[0]?.icon ? `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png` : '',

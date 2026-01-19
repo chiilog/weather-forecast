@@ -159,7 +159,15 @@ App
 
 ```typescript
 // 状態に応じた表示
-if (isLoading) return <WeatherSkeleton />;
+const { cityId } = useParams<{ cityId: string }>();
+const city = getCityById(cityId ?? '');
+const { data, isPending, isError } = useWeather(cityId ?? '');
+
+// 無効なcityIdの場合はエラー画面を表示
+if (!city) return <ErrorScreen message="指定された地域が見つかりません" />;
+
+// isPendingを使用（TanStack Query v5ではisLoadingはisPending && isFetching）
+if (isPending) return <WeatherSkeleton />;
 if (isError) return <ErrorScreen />;
 return <WeatherList data={data} />;
 ```
@@ -246,13 +254,19 @@ return <WeatherList data={data} />;
 
 | Props | 型 | 説明 |
 |-------|-----|------|
-| なし | - | - |
+| message | string (optional) | カスタムエラーメッセージ |
+| description | string (optional) | 詳細説明 |
 
 ```typescript
 // 構造
+interface ErrorScreenProps {
+  message?: string;
+  description?: string;
+}
+
 <div>
-  <p>エラーが発生しました</p>
-  <p>天気情報を取得できませんでした。</p>
+  <p>{message ?? 'エラーが発生しました'}</p>
+  <p>{description ?? '天気情報を取得できませんでした。'}</p>
   <Link to="/">ホームに戻る</Link>
 </div>
 ```

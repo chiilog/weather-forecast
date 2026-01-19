@@ -65,10 +65,11 @@ Scenario: 天気画面表示時にAPIからデータを取得する
   When ユーザーが"/weather/tokyo"にアクセスする
   Then OpenWeatherMap APIが呼び出される
   And 取得パラメータは以下の通りである
-    | パラメータ | 値     |
-    | q          | Tokyo  |
-    | units      | metric |
-    | lang       | ja     |
+    | パラメータ | 値         |
+    | q          | Tokyo      |
+    | units      | metric     |
+    | lang       | ja         |
+    | APPID      | {API_KEY}  |
 ```
 
 ### 2.2 天気データ表示

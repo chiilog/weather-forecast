@@ -53,12 +53,15 @@
 
 | レイヤー | 技術 | バージョン |
 |----------|------|-----------|
-| ビルドツール | Vite | 5.x |
-| UIフレームワーク | React | 18.x |
+| ビルドツール | Vite | 7.x |
+| UIフレームワーク | React | 19.x |
 | 言語 | TypeScript | 5.x |
 | 状態管理・データフェッチ | TanStack Query | 5.x |
-| ルーティング | React Router | 6.x |
-| スタイリング | Tailwind CSS | 3.x |
+| ルーティング | React Router | 7.x |
+| スタイリング | Tailwind CSS | 4.x |
+| コードフォーマット | Prettier | 3.x |
+| リンター | ESLint | 9.x |
+| Git フック | husky + lint-staged | 9.x / 16.x |
 | テスト | Vitest + Testing Library | - |
 | APIモック | MSW | 2.x |
 

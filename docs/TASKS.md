@@ -11,80 +11,116 @@ TDD（テスト駆動開発）のRed-Green-Refactorサイクルに従って進�
 
 ### 1.1 プロジェクトセットアップ
 
-- [ ] Vite + React + TypeScript プロジェクトを作成
+- [x] Vite + React + TypeScript プロジェクトを作成
   ```bash
   npm create vite@latest . -- --template react-ts
   ```
-- [ ] 不要なボイラープレートファイルを削除
-- [ ] `npm install` で依存関係をインストール
-- [ ] 開発サーバーが起動することを確認
+- [x] 不要なボイラープレートファイルを削除
+- [x] `npm install` で依存関係をインストール
+- [x] 開発サーバーが起動することを確認
 
-### 1.2 Tailwind CSS導入
+### 1.1.1 EditorConfig・Prettier 導入
 
-- [ ] Tailwind CSS をインストール
+- [x] `.editorconfig` を作成
+- [x] Prettier をインストール
   ```bash
-  npm install -D tailwindcss postcss autoprefixer
-  npx tailwindcss init -p
+  npm install -D prettier eslint-config-prettier
   ```
-- [ ] `tailwind.config.js` を設定
-- [ ] `src/index.css` に Tailwind ディレクティブを追加
-- [ ] 基本スタイルが適用されることを確認
+- [x] `.prettierrc` を作成
+- [x] `.prettierignore` を作成
+- [x] ESLint に eslint-config-prettier を追加
+- [x] `package.json` に format スクリプトを追加
+
+### 1.1.2 husky・lint-staged 導入
+
+- [x] husky と lint-staged をインストール
+  ```bash
+  npm install -D husky lint-staged
+  ```
+- [x] husky を初期化
+  ```bash
+  npx husky init
+  ```
+- [x] `.husky/pre-commit` を設定（lint-staged を実行）
+- [x] `package.json` に lint-staged 設定を追加
+
+### 1.2 Tailwind CSS v4 導入
+
+- [x] Tailwind CSS v4 をインストール（Vite プラグイン方式）
+  ```bash
+  npm install tailwindcss @tailwindcss/vite
+  ```
+- [x] `vite.config.ts` に @tailwindcss/vite プラグインを追加
+- [x] `src/index.css` に `@import "tailwindcss";` を追加
+- [x] 基本スタイルが適用されることを確認
 
 ### 1.3 テスト環境構築
 
-- [ ] Vitest + Testing Library をインストール
+- [x] Vitest + Testing Library をインストール
   ```bash
-  npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
+  npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom @vitest/coverage-v8
   ```
-- [ ] `vitest.config.ts` を作成
-- [ ] テストセットアップファイルを作成
-- [ ] サンプルテストが実行できることを確認
+- [x] `vitest.config.ts` を作成
+- [x] `vitest.setup.ts` を作成
+- [x] `tsconfig.app.json` に型定義を追加
+- [x] `package.json` にテストスクリプトを追加
+- [x] サンプルテストが実行できることを確認
 
 ### 1.4 MSW導入
 
-- [ ] MSW をインストール
+- [x] MSW をインストール
   ```bash
   npm install -D msw
   ```
-- [ ] `src/mocks/handlers.ts` を作成
-- [ ] `src/mocks/server.ts` を作成（テスト用）
-- [ ] テストセットアップでMSWを設定
+- [x] `src/mocks/handlers.ts` を作成
+- [x] `src/mocks/server.ts` を作成（テスト用）
+- [x] `vitest.setup.ts` でMSWサーバーを設定
 
-### 1.5 React Router導入
+### 1.5 React Router v7 導入
 
-- [ ] React Router をインストール
+- [x] React Router をインストール
   ```bash
   npm install react-router-dom
   ```
-- [ ] `App.tsx` に基本ルーティングを設定
-- [ ] ルーティングが動作することを確認
+- [x] `src/pages/HomePage.tsx` を作成
+- [x] `src/pages/WeatherPage.tsx` を作成
+- [x] `App.tsx` に基本ルーティングを設定
+- [x] `main.tsx` に BrowserRouter を設定
+- [x] ルーティングが動作することを確認
 
-### 1.6 TanStack Query導入
+### 1.6 TanStack Query v5 導入
 
-- [ ] TanStack Query をインストール
+- [x] TanStack Query をインストール
   ```bash
   npm install @tanstack/react-query
   ```
-- [ ] `QueryClient` と `QueryClientProvider` を設定
-- [ ] キャッシュ設定（staleTime, gcTime）を追加
+- [x] `src/lib/queryClient.ts` を作成
+  - [x] staleTime: 10分
+  - [x] gcTime: 30分
+  - [x] retry: 4xxエラーはリトライしない、5xxは1回まで
+- [x] `main.tsx` に `QueryClientProvider` を設定
 
 ### 1.7 型定義・定数定義
 
-- [ ] `src/types/weather.ts` を作成
-  - [ ] `CityId` 型
-  - [ ] `City` インターフェース
-  - [ ] `WeatherApiResponse` インターフェース
-  - [ ] `WeatherItem` インターフェース
-  - [ ] `FormattedWeather` インターフェース
-- [ ] `src/constants/cities.ts` を作成
-  - [ ] `CITIES` 配列
-  - [ ] `getCityById` 関数
+- [x] `src/types/weather.ts` を作成
+  - [x] `CityId` 型
+  - [x] `City` インターフェース
+  - [x] `WeatherApiResponse` インターフェース
+  - [x] `WeatherItem` インターフェース
+  - [x] `FormattedWeather` インターフェース
+- [x] `src/constants/cities.ts` を作成
+  - [x] `CITIES` 配列
+  - [x] `getCityById` 関数
+  - [x] `isValidCityId` 関数
+- [x] `src/constants/cities.test.ts` を作成
 
 ### 1.8 環境変数設定
 
-- [ ] `.env.local` を作成
-- [ ] `VITE_OPENWEATHER_API_KEY` を設定
-- [ ] `.gitignore` に `.env.local` が含まれていることを確認
+- [x] `.env.local` を作成
+- [x] `.env.example` を作成（テンプレート）
+- [x] `VITE_OPENWEATHER_API_KEY` を設定
+- [x] `src/vite-env.d.ts` に `ImportMetaEnv` 型を追加
+- [x] `.gitignore` に `*.local` が含まれていることを確認
 
 ---
 
@@ -280,10 +316,10 @@ TDD（テスト駆動開発）のRed-Green-Refactorサイクルに従って進�
 
 | Phase | ステータス | 完了タスク | 全タスク |
 |-------|-----------|-----------|---------|
-| Phase 1 | 未着手 | 0 | 8 |
+| Phase 1 | 完了 | 10 | 10 |
 | Phase 2 | 未着手 | 0 | 6 |
 | Phase 3 | 未着手 | 0 | 5 |
-| **合計** | - | 0 | 19 |
+| **合計** | - | 10 | 21 |
 
 ---
 

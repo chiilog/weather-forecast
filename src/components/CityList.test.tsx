@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import { CityList } from './CityList';
+import { CITIES } from '../constants/cities';
 
 describe('CityList', () => {
   it('全ての地域が表示される', () => {

@@ -11,10 +11,9 @@ describe('CityList', () => {
         <CityList />
       </BrowserRouter>
     );
-    expect(screen.getByText('東京')).toBeInTheDocument();
-    expect(screen.getByText('兵庫')).toBeInTheDocument();
-    expect(screen.getByText('大分')).toBeInTheDocument();
-    expect(screen.getByText('北海道')).toBeInTheDocument();
+    CITIES.forEach((city) => {
+      expect(screen.getByText(city.name)).toBeInTheDocument();
+    });
   });
 
   it('各地域がリンクとして表示される', () => {
@@ -23,21 +22,11 @@ describe('CityList', () => {
         <CityList />
       </BrowserRouter>
     );
-    expect(screen.getByRole('link', { name: '東京' })).toHaveAttribute(
-      'href',
-      '/weather/tokyo'
-    );
-    expect(screen.getByRole('link', { name: '兵庫' })).toHaveAttribute(
-      'href',
-      '/weather/hyogo'
-    );
-    expect(screen.getByRole('link', { name: '大分' })).toHaveAttribute(
-      'href',
-      '/weather/oita'
-    );
-    expect(screen.getByRole('link', { name: '北海道' })).toHaveAttribute(
-      'href',
-      '/weather/hokkaido'
-    );
+    CITIES.forEach((city) => {
+      expect(screen.getByRole('link', { name: city.name })).toHaveAttribute(
+        'href',
+        `/weather/${city.id}`
+      );
+    });
   });
 });

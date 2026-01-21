@@ -204,7 +204,7 @@ return <WeatherList data={data} />;
 // 構造
 <li>
   <Link to={`/weather/${city.id}`}>
-    {city.nameJa}
+    {city.name}
   </Link>
 </li>
 ```
@@ -287,8 +287,7 @@ export type CityId = 'tokyo' | 'hyogo' | 'oita' | 'hokkaido';
 // 地域データ
 export interface City {
   id: CityId;
-  nameJa: string;      // 日本語名（表示用）
-  nameEn: string;      // 英語名（API用）
+  name: string;      // 地域名（表示用）
 }
 
 // APIレスポンス（必要なフィールドのみ）
@@ -318,13 +317,13 @@ export interface FormattedWeather {
 ### 4.2 constants/cities.ts
 
 ```typescript
-import { City } from '../types/weather';
+import { City } from '../types/city';
 
 export const CITIES: City[] = [
-  { id: 'tokyo', nameJa: '東京', nameEn: 'Tokyo' },
-  { id: 'hyogo', nameJa: '兵庫', nameEn: 'Hyogo' },
-  { id: 'oita', nameJa: '大分', nameEn: 'Oita' },
-  { id: 'hokkaido', nameJa: '北海道', nameEn: 'Hokkaido' },
+  { id: 'tokyo', name: '東京' },
+  { id: 'hyogo', name: '兵庫' },
+  { id: 'oita', name: '大分' },
+  { id: 'hokkaido', name: '北海道' },
 ];
 
 export const getCityById = (id: string): City | undefined => {
@@ -405,7 +404,7 @@ export function useWeather(cityId: string) {
 
   return useQuery<FormattedWeather[], Error>({
     queryKey: ['weather', cityId],
-    queryFn: () => fetchWeather(city!.nameEn),
+    queryFn: () => fetchWeather(cityId),
     enabled: !!city,
   });
 }

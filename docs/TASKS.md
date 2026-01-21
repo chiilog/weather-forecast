@@ -102,17 +102,11 @@ TDD（テスト駆動開発）のRed-Green-Refactorサイクルに従って進�
 
 ### 1.7 型定義・定数定義
 
-- [x] `src/types/weather.ts` を作成
+- [x] `src/types/city.ts` を作成
   - [x] `CityId` 型
   - [x] `City` インターフェース
-  - [x] `WeatherApiResponse` インターフェース
-  - [x] `WeatherItem` インターフェース
-  - [x] `FormattedWeather` インターフェース
 - [x] `src/constants/cities.ts` を作成
   - [x] `CITIES` 配列
-  - [x] `getCityById` 関数
-  - [x] `isValidCityId` 関数
-- [x] `src/constants/cities.test.ts` を作成
 
 ### 1.8 環境変数設定
 
@@ -132,39 +126,39 @@ TDD（テスト駆動開発）のRed-Green-Refactorサイクルに従って進�
 
 #### 2.1.1 HomePage.tsx
 
-- [ ] **Red**: HomePageのテストを作成
-  - [ ] タイトルが表示されるテスト
-  - [ ] テストが失敗することを確認
-- [ ] **Green**: HomePageを実装（最小構成）
-  - [ ] タイトルのみ表示
-  - [ ] テストが成功することを確認
+- [x] **Red**: HomePageのテストを作成
+  - [x] タイトルが表示されるテスト
+  - [x] テストが失敗することを確認
+- [x] **Green**: HomePageを実装（最小構成）
+  - [x] タイトルのみ表示
+  - [x] テストが成功することを確認
 
 #### 2.1.2 CityListItem.tsx
 
-- [ ] **Red**: CityListItemのテストを作成
-  - [ ] 地域名が表示されるテスト
-  - [ ] クリックで正しいURLに遷移するテスト
-  - [ ] テストが失敗することを確認
-- [ ] **Green**: CityListItemを実装
-  - [ ] Linkコンポーネントで `/weather/:cityId` へ遷移
-  - [ ] テストが成功することを確認
-- [ ] **Refactor**: スタイリングの調整
+- [x] **Red**: CityListItemのテストを作成
+  - [x] 地域名が表示されるテスト
+  - [x] クリックで正しいURLに遷移するテスト
+  - [x] テストが失敗することを確認
+- [x] **Green**: CityListItemを実装
+  - [x] Linkコンポーネントで `/weather/:cityId` へ遷移
+  - [x] テストが成功することを確認
+- [x] **Refactor**: スタイリングの調整
 
 #### 2.1.3 CityList.tsx
 
-- [ ] **Red**: CityListのテストを作成
-  - [ ] CITIES配列の全地域が表示されるテスト
-  - [ ] テストが失敗することを確認
-- [ ] **Green**: CityListを実装
-  - [ ] CITIES定数を使用してCityListItemをマップ
-  - [ ] テストが成功することを確認
-- [ ] **Refactor**: スタイリングの調整
+- [x] **Red**: CityListのテストを作成
+  - [x] CITIES配列の全地域が表示されるテスト
+  - [x] テストが失敗することを確認
+- [x] **Green**: CityListを実装
+  - [x] CITIES定数を使用してCityListItemをマップ
+  - [x] テストが成功することを確認
+- [x] **Refactor**: スタイリングの調整
 
 #### 2.1.4 HomePageにCityListを統合
 
-- [ ] HomePageにCityListを組み込む
-- [ ] 統合後のテストを実行
-- [ ] ブラウザで動作確認（`npm run dev`で確認）
+- [x] HomePageにCityListを組み込む
+- [x] 統合後のテストを実行
+- [x] ブラウザで動作確認（`npm run dev`で確認）
 
 ---
 

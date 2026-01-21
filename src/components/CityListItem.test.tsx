@@ -7,9 +7,7 @@ import type { City } from '../types/city';
 describe('CityListItem', () => {
   const mockCity: City = {
     id: 'tokyo',
-    nameJa: '東京',
-    lat: 35.6895,
-    lon: 139.6917,
+    name: '東京',
   };
 
   it('地域名が表示される', () => {

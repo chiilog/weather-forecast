@@ -11,7 +11,7 @@ export function CityListItem({ city }: CityListItemProps) {
       to={`/weather/${city.id}`}
       className="block p-4 bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
     >
-      <span className="text-lg text-gray-800">{city.nameJa}</span>
+      <span className="text-lg text-gray-800">{city.name}</span>
     </Link>
   );
 }

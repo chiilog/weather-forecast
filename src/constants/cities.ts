@@ -1,29 +1,8 @@
-import type { City, CityId } from '../types/weather';
+import type { City } from '../types/city';
 
-/**
- * 対応地域一覧
- */
-export const CITIES: City[] = [
-  { id: 'tokyo', nameJa: '東京', nameEn: 'Tokyo' },
-  { id: 'hyogo', nameJa: '兵庫', nameEn: 'Hyogo' },
-  { id: 'oita', nameJa: '大分', nameEn: 'Oita' },
-  { id: 'hokkaido', nameJa: '北海道', nameEn: 'Hokkaido' },
+export const CITIES: readonly City[] = [
+  { id: 'tokyo', nameJa: '東京', lat: 35.6895, lon: 139.6917 },
+  { id: 'hyogo', nameJa: '兵庫', lat: 34.6901, lon: 135.1955 },
+  { id: 'oita', nameJa: '大分', lat: 33.2382, lon: 131.6126 },
+  { id: 'hokkaido', nameJa: '北海道', lat: 43.0642, lon: 141.3469 },
 ];
-
-/**
- * IDから地域を取得
- * @param id 地域ID
- * @returns 地域データ。見つからない場合は undefined
- */
-export function getCityById(id: string): City | undefined {
-  return CITIES.find((city) => city.id === id);
-}
-
-/**
- * 有効な地域IDかどうかを判定
- * @param id 検証するID
- * @returns 有効な CityId なら true
- */
-export function isValidCityId(id: string): id is CityId {
-  return CITIES.some((city) => city.id === id);
-}

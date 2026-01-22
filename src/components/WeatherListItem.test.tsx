@@ -1,5 +1,5 @@
-import { render, screen, beforeEach } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { WeatherListItem } from './WeatherListItem';
 
 describe('WeatherListItem', () => {

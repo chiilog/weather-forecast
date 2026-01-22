@@ -215,15 +215,21 @@ return <WeatherList data={data} />;
 
 | Props | 型 | 説明 |
 |-------|-----|------|
-| data | FormattedWeather[] | 整形済み天気データ |
+| items | Array<{ dateTime: number; iconUrl: string; temperature: number; description: string; }> | 天気データ配列（inline型定義、Issue #9で整理予定） |
 
 ```typescript
 // 構造
-<ul>
-  {data.map((item, index) => (
-    <WeatherListItem key={`${item.dt}-${index}`} weather={item} />
+<div className="space-y-2">
+  {items.map((item, index) => (
+    <WeatherListItem
+      key={`${item.dateTime}-${index}`}
+      dateTime={item.dateTime}
+      iconUrl={item.iconUrl}
+      temperature={item.temperature}
+      description={item.description}
+    />
   ))}
-</ul>
+</div>
 ```
 
 #### WeatherListItem.tsx
@@ -232,15 +238,25 @@ return <WeatherList data={data} />;
 
 | Props | 型 | 説明 |
 |-------|-----|------|
-| weather | FormattedWeather | 天気データ |
+| dateTime | number | Unix timestamp |
+| iconUrl | string | 完全なURL（例: "https://openweathermap.org/img/wn/01d@2x.png"） |
+| temperature | number | 気温 |
+| description | string | 天気の説明 |
 
 ```typescript
 // 構造
-<li>
-  <img src={weather.iconUrl} alt="天気アイコン" />
-  <span>{weather.temp}°C</span>
-  <span>{weather.dateTime}</span>
-</li>
+<div className="flex items-center justify-between border-b border-gray-200 p-4 hover:bg-gray-50">
+  <div className="flex-1">
+    <p className="text-sm text-gray-600">{formatDateTime(dateTime)}</p>
+  </div>
+  <div className="flex items-center gap-4">
+    <img src={iconUrl} alt={description} className="h-12 w-12" />
+    <div className="text-center">
+      <p className="text-2xl font-bold">{temperature}℃</p>
+      <p className="text-sm text-gray-600">{description}</p>
+    </div>
+  </div>
+</div>
 ```
 
 #### WeatherSkeleton.tsx

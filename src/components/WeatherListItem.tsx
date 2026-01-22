@@ -3,10 +3,22 @@
 // 2. formatDateTime関数をutils/date.tsに抽出
 // 3. Props型をtypes/weather.tsに移動して整理
 type WeatherListItemProps = {
-  dateTime: string;
+  dateTime: number;
   iconUrl: string;
   temperature: number;
   description: string;
+};
+
+// TODO: Issue #9 - この関数をutils/date.tsに抽出する
+// Unix時刻を "MM/DD HH:mm" 形式にフォーマット（簡易版）
+// UTC時刻を使用してタイムゾーン依存を回避
+const formatDateTime = (timestamp: number): string => {
+  const date = new Date(timestamp * 1000);
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+  return `${month}/${day} ${hours}:${minutes}`;
 };
 
 export const WeatherListItem = ({
@@ -15,17 +27,6 @@ export const WeatherListItem = ({
   temperature,
   description,
 }: WeatherListItemProps) => {
-  // TODO: Issue #9 - この関数をutils/date.tsに抽出する
-  // Unix時刻を "MM/DD HH:mm" 形式にフォーマット（簡易版）
-  const formatDateTime = (timestamp: string): string => {
-    const date = new Date(Number(timestamp) * 1000);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${month}/${day} ${hours}:${minutes}`;
-  };
-
   return (
     <div className="flex items-center justify-between border-b border-gray-200 p-4 hover:bg-gray-50">
       <div className="flex-1">

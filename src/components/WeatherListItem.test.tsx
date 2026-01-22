@@ -1,60 +1,35 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, beforeEach } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { WeatherListItem } from './WeatherListItem';
 
 describe('WeatherListItem', () => {
-  const mockIconUrl = 'https://openweathermap.org/img/wn/01d@2x.png';
+  const mockProps = {
+    dateTime: 1609459200,
+    iconUrl: 'https://openweathermap.org/img/wn/01d@2x.png',
+    temperature: 15.5,
+    description: '晴れ',
+  };
 
-  it('日時が表示される', () => {
-    render(
-      <WeatherListItem
-        dateTime="1609459200"
-        iconUrl={mockIconUrl}
-        temperature={15.5}
-        description="晴れ"
-      />
-    );
+  beforeEach(() => {
+    render(<WeatherListItem {...mockProps} />);
+  });
 
-    expect(screen.getByText(/01\/01/)).toBeInTheDocument();
+  it('日時が "MM/DD HH:mm" 形式で表示される', () => {
+    // タイムスタンプ 1609459200 は UTC で 2021-01-01 00:00:00
+    expect(screen.getByText('01/01 00:00')).toBeInTheDocument();
   });
 
   it('天気アイコンが表示される', () => {
-    render(
-      <WeatherListItem
-        dateTime="1609459200"
-        iconUrl={mockIconUrl}
-        temperature={15.5}
-        description="晴れ"
-      />
-    );
-
-    const icon = screen.getByRole('img');
-    expect(icon).toHaveAttribute('src', mockIconUrl);
+    const icon = screen.getByRole('img', { name: mockProps.description });
+    expect(icon).toBeInTheDocument();
+    expect(icon).toHaveAttribute('src', mockProps.iconUrl);
   });
 
   it('気温が表示される', () => {
-    render(
-      <WeatherListItem
-        dateTime="1609459200"
-        iconUrl={mockIconUrl}
-        temperature={15.5}
-        description="晴れ"
-      />
-    );
-
-    expect(screen.getByText('15.5℃')).toBeInTheDocument();
+    expect(screen.getByText(`${mockProps.temperature}℃`)).toBeInTheDocument();
   });
 
   it('天気の説明が表示される', () => {
-    render(
-      <WeatherListItem
-        dateTime="1609459200"
-        iconUrl={mockIconUrl}
-        temperature={15.5}
-        description="晴れ"
-      />
-    );
-
-    expect(screen.getByText('晴れ')).toBeInTheDocument();
+    expect(screen.getByText(mockProps.description)).toBeInTheDocument();
   });
 });

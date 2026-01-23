@@ -92,9 +92,6 @@ src/
 │   └── weather.ts                # API呼び出し関数
 ├── types/
 │   └── weather.ts                # 型定義
-├── utils/
-│   ├── date.ts                   # 日時フォーマット関数
-│   └── date.test.ts              # テスト
 └── constants/
     └── cities.ts                 # 地域定義
 ```
@@ -215,7 +212,7 @@ return <WeatherList items={data} />;
 
 | Props | 型 | 説明 |
 |-------|-----|------|
-| items | Array<{ dateTime: number; iconUrl: string; temperature: number; description: string; }> | 天気データ配列（inline型定義、Issue #9で整理予定） |
+| items | Array<{ dateTime: string; iconUrl: string; temperature: number; description: string; }> | 天気データ配列（inline型定義、Issue #9で整理予定） |
 
 ```typescript
 // 構造
@@ -238,7 +235,7 @@ return <WeatherList items={data} />;
 
 | Props | 型 | 説明 |
 |-------|-----|------|
-| dateTime | number | Unix timestamp |
+| dateTime | string | dt_txt形式（例: "2026-01-21 15:00:00"） |
 | iconUrl | string | 完全なURL（例: "https://openweathermap.org/img/wn/01d@2x.png"） |
 | temperature | number | 気温 |
 | description | string | 天気の説明 |
@@ -247,7 +244,7 @@ return <WeatherList items={data} />;
 // 構造
 <div className="flex items-center justify-between border-b border-gray-200 p-4 hover:bg-gray-50">
   <div className="flex-1">
-    <p className="text-sm text-gray-600">{formatDateTime(dateTime)}</p>
+    <p className="text-sm text-gray-600">{dateTime}</p>
   </div>
   <div className="flex items-center gap-4">
     <img src={iconUrl} alt={description} className="h-12 w-12" />
@@ -313,6 +310,7 @@ export interface WeatherApiResponse {
 
 export interface WeatherItem {
   dt: number;
+  dt_txt: string;  // "2026-01-21 15:00:00"
   main: {
     temp: number;
   };
@@ -324,7 +322,7 @@ export interface WeatherItem {
 // 整形後のデータ（UI表示用）
 export interface FormattedWeather {
   dt: number;          // Unix timestamp（key用）
-  dateTime: string;    // "1/20 12:00"
+  dateTime: string;    // "2026-01-21 15:00:00"（APIのdt_txtをそのまま使用）
   temp: number;        // 25
   iconUrl: string;     // "https://openweathermap.org/img/wn/01d@2x.png"
 }
@@ -370,7 +368,6 @@ GET https://api.openweathermap.org/data/2.5/forecast
 
 ```typescript
 import { WeatherApiResponse, FormattedWeather } from '../types/weather';
-import { formatDateTime } from '../utils/date';
 
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5';
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
@@ -396,7 +393,7 @@ export async function fetchWeather(cityNameEn: string): Promise<FormattedWeather
 
   return data.list.map(item => ({
     dt: item.dt,
-    dateTime: formatDateTime(item.dt),
+    dateTime: item.dt_txt,  // APIのdt_txtをそのまま使用
     temp: Math.round(item.main.temp),
     iconUrl: item.weather?.[0]?.icon ? `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png` : '',
   }));
@@ -568,7 +565,6 @@ const buttonStyle = "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
 
 | 対象 | テストツール | テスト内容 |
 |------|-------------|-----------|
-| utils/date.ts | Vitest | 日時フォーマットの正確性 |
 | api/weather.ts | Vitest + MSW | API呼び出しの正確性 |
 | hooks/useWeather.ts | Testing Library | データ取得・状態管理 |
 | CityListItem | Testing Library | クリックイベント・遷移 |
@@ -591,6 +587,7 @@ export const handlers = [
       list: [
         {
           dt: 1705752000,
+          dt_txt: '2024-01-20 12:00:00',
           main: { temp: 15.5 },
           weather: [{ icon: '01d' }],
         },

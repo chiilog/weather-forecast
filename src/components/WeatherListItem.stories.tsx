@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Sunny: Story = {
   args: {
-    dateTime: 1705752000,
+    dateTime: '2024-01-20 12:00:00',
     iconUrl: 'https://openweathermap.org/img/wn/01d@2x.png',
     temperature: 15.5,
     description: '快晴',
@@ -24,7 +24,7 @@ export const Sunny: Story = {
 
 export const Rainy: Story = {
   args: {
-    dateTime: 1705762800,
+    dateTime: '2024-01-20 15:00:00',
     iconUrl: 'https://openweathermap.org/img/wn/10d@2x.png',
     temperature: 12.3,
     description: '小雨',
@@ -33,7 +33,7 @@ export const Rainy: Story = {
 
 export const Snowy: Story = {
   args: {
-    dateTime: 1705773600,
+    dateTime: '2024-01-20 18:00:00',
     iconUrl: 'https://openweathermap.org/img/wn/13d@2x.png',
     temperature: -2.1,
     description: '雪',
@@ -42,7 +42,7 @@ export const Snowy: Story = {
 
 export const Night: Story = {
   args: {
-    dateTime: 1705784400,
+    dateTime: '2024-01-20 21:00:00',
     iconUrl: 'https://openweathermap.org/img/wn/01n@2x.png',
     temperature: 8.7,
     description: '晴れ',

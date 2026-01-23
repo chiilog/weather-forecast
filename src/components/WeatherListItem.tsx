@@ -1,25 +1,4 @@
-// TODO: Issue #9 - 以下の作業を実施
-// 1. getWeatherIconUrl関数をutils/weather.tsに作成（アイコンコード → URL変換）
-// 2. formatDateTime関数をutils/date.tsに抽出
-// 3. Props型をtypes/weather.tsに移動して整理
-type WeatherListItemProps = {
-  dateTime: number;
-  iconUrl: string;
-  temperature: number;
-  description: string;
-};
-
-// TODO: Issue #9 - この関数をutils/date.tsに抽出する
-// Unix時刻を "MM/DD HH:mm" 形式にフォーマット（簡易版）
-// UTC時刻を使用してタイムゾーン依存を回避
-const formatDateTime = (timestamp: number): string => {
-  const date = new Date(timestamp * 1000);
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  const hours = String(date.getUTCHours()).padStart(2, '0');
-  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-  return `${month}/${day} ${hours}:${minutes}`;
-};
+import type { WeatherListItemProps } from '../types/weather';
 
 export const WeatherListItem = ({
   dateTime,
@@ -30,7 +9,7 @@ export const WeatherListItem = ({
   return (
     <div className="flex items-center justify-between border-b border-gray-200 p-4 hover:bg-gray-50">
       <div className="flex-1">
-        <p className="text-sm text-gray-600">{formatDateTime(dateTime)}</p>
+        <p className="text-sm text-gray-600">{dateTime}</p>
       </div>
       <div className="flex items-center gap-4">
         <img src={iconUrl} alt={description} className="h-12 w-12" />

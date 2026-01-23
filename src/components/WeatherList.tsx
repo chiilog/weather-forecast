@@ -1,5 +1,5 @@
-import { WeatherListItem } from './WeatherListItem';
 import type { WeatherListProps } from '../types/weather';
+import { WeatherListItem } from './WeatherListItem';
 
 export function WeatherList({ items }: WeatherListProps) {
   return (

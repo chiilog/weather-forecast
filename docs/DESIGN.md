@@ -172,7 +172,7 @@ if (!city) return <ErrorScreen message="指定された地域が見つかりま�
 // isPendingを使用（TanStack Query v5ではisLoadingはisPending && isFetching）
 if (isPending) return <WeatherSkeleton />;
 if (isError) return <ErrorScreen />;
-return <WeatherList data={data} />;
+return <WeatherList items={data} />;
 ```
 
 #### CityList.tsx

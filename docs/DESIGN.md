@@ -212,7 +212,7 @@ return <WeatherList items={data} />;
 
 | Props | 型 | 説明 |
 |-------|-----|------|
-| items | Array<{ dateTime: string; iconUrl: string; temperature: number; description: string; }> | 天気データ配列（inline型定義、Issue #9で整理予定） |
+| items | WeatherListItemProps[] | 天気データ配列（types/weather.ts の共有型を使用） |
 
 ```typescript
 // 構造

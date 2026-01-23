@@ -1,13 +1,5 @@
+import type { WeatherListProps } from '../types/weather';
 import { WeatherListItem } from './WeatherListItem';
-
-type WeatherListProps = {
-  items: Array<{
-    dateTime: number;
-    iconUrl: string;
-    temperature: number;
-    description: string;
-  }>;
-};
 
 export function WeatherList({ items }: WeatherListProps) {
   return (

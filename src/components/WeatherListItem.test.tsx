@@ -4,7 +4,7 @@ import { WeatherListItem } from './WeatherListItem';
 
 describe('WeatherListItem', () => {
   const mockProps = {
-    dateTime: 1609459200,
+    dateTime: '2021-01-01 00:00:00',
     iconUrl: 'https://openweathermap.org/img/wn/01d@2x.png',
     temperature: 15.5,
     description: '晴れ',
@@ -14,9 +14,8 @@ describe('WeatherListItem', () => {
     render(<WeatherListItem {...mockProps} />);
   });
 
-  it('日時が "MM/DD HH:mm" 形式で表示される', () => {
-    // タイムスタンプ 1609459200 は UTC で 2021-01-01 00:00:00
-    expect(screen.getByText('01/01 00:00')).toBeInTheDocument();
+  it('日時が表示される', () => {
+    expect(screen.getByText('2021-01-01 00:00:00')).toBeInTheDocument();
   });
 
   it('天気アイコンが表示される', () => {

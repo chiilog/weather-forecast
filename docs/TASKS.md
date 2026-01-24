@@ -166,30 +166,25 @@ TDD（テスト駆動開発）のRed-Green-Refactorサイクルに従って進�
 
 #### 2.2.1 WeatherListItem.tsx
 
-- [ ] **Red**: WeatherListItemのテストを作成
-  - [ ] 日時が表示されるテスト
-  - [ ] 天気アイコンが表示されるテスト
-  - [ ] 気温が表示されるテスト
-  - [ ] テストが失敗することを確認
-- [ ] **Green**: WeatherListItemを実装
-  - [ ] propsから受け取ったデータを表示
-  - [ ] テストが成功することを確認
-- [ ] **Refactor**: スタイリングの調整
-
-> **ここで日時フォーマットが必要になる**
-> - [ ] **Red**: `utils/date.ts` の `formatDateTime` テストを作成
-> - [ ] **Green**: `formatDateTime` を実装（Unix timestamp → JST形式）
-> - [ ] **Refactor**: WeatherListItemで使用
+- [x] **Red**: WeatherListItemのテストを作成
+  - [x] 日時が表示されるテスト
+  - [x] 天気アイコンが表示されるテスト
+  - [x] 気温が表示されるテスト
+  - [x] テストが失敗することを確認
+- [x] **Green**: WeatherListItemを実装
+  - [x] propsから受け取ったデータを表示
+  - [x] テストが成功することを確認
+- [x] **Refactor**: スタイリングの調整
 
 #### 2.2.2 WeatherList.tsx
 
-- [ ] **Red**: WeatherListのテストを作成
-  - [ ] 天気データ配列を受け取り、すべてのアイテムを表示するテスト
-  - [ ] テストが失敗することを確認
-- [ ] **Green**: WeatherListを実装
-  - [ ] propsのdataを使用してWeatherListItemをマップ
-  - [ ] テストが成功することを確認
-- [ ] **Refactor**: スタイリングの調整
+- [x] **Red**: WeatherListのテストを作成
+  - [x] 天気データ配列を受け取り、すべてのアイテムを表示するテスト
+  - [x] テストが失敗することを確認
+- [x] **Green**: WeatherListを実装
+  - [x] propsのdataを使用してWeatherListItemをマップ
+  - [x] テストが成功することを確認
+- [x] **Refactor**: スタイリングの調整
 
 #### 2.2.3 API層とカスタムフックの実装
 
@@ -197,27 +192,27 @@ TDD（テスト駆動開発）のRed-Green-Refactorサイクルに従って進�
 
 ##### api/weather.ts
 
-- [ ] **Red**: `fetchWeather` のテストを作成（MSWでモック）
-  - [ ] 正常系：天気データを取得できるテスト
-  - [ ] 異常系：5xxエラー時にエラーがスローされるテスト
-  - [ ] テストが失敗することを確認
-- [ ] **Green**: `fetchWeather` を実装
-  - [ ] APIエンドポイントへのfetch
-  - [ ] レスポンスの整形（FormattedWeather型へ変換）
-  - [ ] エラーハンドリング
-  - [ ] テストが成功することを確認
-- [ ] **Refactor**: 必要に応じてリファクタリング
+- [x] **Red**: `fetchWeather` のテストを作成（MSWでモック）
+  - [x] 正常系：天気データを取得できるテスト
+  - [x] 異常系：5xxエラー時にエラーがスローされるテスト
+  - [x] テストが失敗することを確認
+- [x] **Green**: `fetchWeather` を実装
+  - [x] APIエンドポイントへのfetch
+  - [x] レスポンスの整形（FormattedWeather型へ変換）
+  - [x] エラーハンドリング
+  - [x] テストが成功することを確認
+- [x] **Refactor**: 必要に応じてリファクタリング
 
 ##### hooks/useWeather.ts
 
-- [ ] **Red**: `useWeather` のテストを作成
-  - [ ] データ取得成功時にweatherDataを返すテスト
-  - [ ] APIエラー時にisError=trueになるテスト
-  - [ ] テストが失敗することを確認
-- [ ] **Green**: `useWeather` を実装
-  - [ ] useQueryを使用してfetchWeatherを呼び出し
-  - [ ] テストが成功することを確認
-- [ ] **Refactor**: 必要に応じてリファクタリング
+- [x] **Red**: `useWeather` のテストを作成
+  - [x] データ取得成功時にweatherDataを返すテスト
+  - [x] APIエラー時にisError=trueになるテスト
+  - [x] テストが失敗することを確認
+- [x] **Green**: `useWeather` を実装
+  - [x] useQueryを使用してfetchWeatherを呼び出し
+  - [x] テストが成功することを確認
+- [x] **Refactor**: 必要に応じてリファクタリング
 
 #### 2.2.4 WeatherPage.tsx
 
@@ -343,16 +338,16 @@ TDD（テスト駆動開発）のRed-Green-Refactorサイクルに従って進�
 | Phase | ステータス | 完了タスク | 全タスク |
 |-------|-----------|-----------|---------|
 | Phase 1 | 完了 | 10 | 10 |
-| Phase 2 | 未着手 | 0 | 4 |
+| Phase 2 | 進行中 | 7 | 14 |
 | Phase 3 | 未着手 | 0 | 5 |
-| **合計** | - | 10 | 19 |
+| **合計** | - | 17 | 29 |
 
 ### Phase 2の詳細進捗
 
 | セクション | 完了タスク | 全タスク |
 |-----------|-----------|---------|
-| 2.1 ホーム画面の実装 | 0 | 4 |
-| 2.2 天気画面の実装 | 0 | 4 |
+| 2.1 ホーム画面の実装 | 4 | 4 |
+| 2.2 天気画面の実装 | 3 | 4 |
 | 2.3 エラーハンドリング | 0 | 3 |
 | 2.4 結合テスト | 0 | 3 |
 

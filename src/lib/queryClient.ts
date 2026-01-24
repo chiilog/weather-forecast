@@ -10,6 +10,7 @@ export const queryClient = new QueryClient({
     queries: {
       staleTime: 1000 * 60 * 10, // 10分間キャッシュを新鮮とみなす
       gcTime: 1000 * 60 * 30, // 30分間キャッシュを保持
+      refetchOnWindowFocus: false, // ウィンドウフォーカス時の自動再取得を無効化
       retry: (failureCount, error) => {
         // 4xx系エラーはリトライしない（クライアントエラーは再試行しても解決しない）
         if (

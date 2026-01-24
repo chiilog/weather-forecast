@@ -11,12 +11,12 @@
 
 ### APIキーの管理
 
-- **環境変数**: `VITE_OPENWEATHERMAP_API_KEY`
+- **環境変数**: `VITE_OPENWEATHER_API_KEY`
 - APIキーは環境変数で管理し、コード内にハードコードしない
 - `.env`ファイルに設定し、`.gitignore`でバージョン管理から除外
 
 ```env
-VITE_OPENWEATHERMAP_API_KEY=your_api_key_here
+VITE_OPENWEATHER_API_KEY=your_api_key_here
 ```
 
 ### HTTPSの使用
@@ -149,7 +149,7 @@ GET http://api.openweathermap.org/geo/1.0/reverse
 ```typescript
 // 都市名から座標を取得
 const getCityCoordinates = async (cityName: string) => {
-  const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+  const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
   const response = await fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${apiKey}`
   );
@@ -164,7 +164,7 @@ const getCityCoordinates = async (cityName: string) => {
 
 // 座標から都市名を取得
 const getCityName = async (lat: number, lon: number) => {
-  const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+  const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
   const response = await fetch(
     `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`
   );
@@ -383,7 +383,7 @@ interface WeatherApiResponse {
 }
 
 const getWeatherForecast = async (lat: number, lon: number): Promise<WeatherApiResponse> => {
-  const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+  const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=ja`
   );

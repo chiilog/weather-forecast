@@ -8,6 +8,7 @@ describe('CityListItem', () => {
   const mockCity: City = {
     id: 'tokyo',
     name: '東京',
+    nameEn: 'Tokyo',
   };
 
   it('地域名が表示される', () => {

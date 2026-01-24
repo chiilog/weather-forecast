@@ -23,24 +23,24 @@ type Story = StoryObj<typeof meta>;
 
 export const Tokyo: Story = {
   args: {
-    city: { id: 'tokyo', name: '東京' },
+    city: { id: 'tokyo', name: '東京', nameEn: 'Tokyo' },
   },
 };
 
 export const Hyogo: Story = {
   args: {
-    city: { id: 'hyogo', name: '兵庫' },
+    city: { id: 'hyogo', name: '兵庫', nameEn: 'Hyogo' },
   },
 };
 
 export const Oita: Story = {
   args: {
-    city: { id: 'oita', name: '大分' },
+    city: { id: 'oita', name: '大分', nameEn: 'Oita' },
   },
 };
 
 export const Hokkaido: Story = {
   args: {
-    city: { id: 'hokkaido', name: '北海道' },
+    city: { id: 'hokkaido', name: '北海道', nameEn: 'Hokkaido' },
   },
 };

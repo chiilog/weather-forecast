@@ -39,44 +39,51 @@ describe('fetchWeather', () => {
       server.resetHandlers();
     });
 
-    it('401エラーの場合、ApiErrorをthrowする', async () => {
+    it('401エラーの場合、正しいプロパティを持つApiErrorをthrowする', async () => {
       server.use(errorHandlers.unauthorized);
       const url = buildOpenWeatherForecastUrl('Tokyo');
 
-      await expect(fetchWeather(url)).rejects.toThrow(ApiError);
-      await expect(fetchWeather(url)).rejects.toThrow(
-        'Weather API request failed: 401'
-      );
-    });
-
-    it('404エラーの場合、ApiErrorをthrowする', async () => {
-      server.use(errorHandlers.notFound);
-      const url = buildOpenWeatherForecastUrl('Tokyo');
-      await expect(fetchWeather(url)).rejects.toThrow(ApiError);
-    });
-
-    it('500エラーの場合、ApiErrorをthrowする', async () => {
-      server.use(errorHandlers.serverError);
-      const url = buildOpenWeatherForecastUrl('Tokyo');
-      await expect(fetchWeather(url)).rejects.toThrow(ApiError);
-    });
-
-    it('429エラーの場合、ApiErrorをthrowする', async () => {
-      server.use(errorHandlers.rateLimited);
-      const url = buildOpenWeatherForecastUrl('Tokyo');
-      await expect(fetchWeather(url)).rejects.toThrow(ApiError);
-    });
-
-    it('ApiErrorにはstatusプロパティが含まれる', async () => {
-      server.use(errorHandlers.unauthorized);
-      const url = buildOpenWeatherForecastUrl('Tokyo');
-
-      try {
-        await fetchWeather(url);
-      } catch (error) {
+      await expect(fetchWeather(url)).rejects.toSatisfy((error: unknown) => {
         expect(error).toBeInstanceOf(ApiError);
         expect((error as ApiError).status).toBe(401);
-      }
+        expect((error as ApiError).message).toBe(
+          'Weather API request failed: 401'
+        );
+        return true;
+      });
+    });
+
+    it('404エラーの場合、正しいプロパティを持つApiErrorをthrowする', async () => {
+      server.use(errorHandlers.notFound);
+      const url = buildOpenWeatherForecastUrl('Tokyo');
+
+      await expect(fetchWeather(url)).rejects.toSatisfy((error: unknown) => {
+        expect(error).toBeInstanceOf(ApiError);
+        expect((error as ApiError).status).toBe(404);
+        return true;
+      });
+    });
+
+    it('500エラーの場合、正しいプロパティを持つApiErrorをthrowする', async () => {
+      server.use(errorHandlers.serverError);
+      const url = buildOpenWeatherForecastUrl('Tokyo');
+
+      await expect(fetchWeather(url)).rejects.toSatisfy((error: unknown) => {
+        expect(error).toBeInstanceOf(ApiError);
+        expect((error as ApiError).status).toBe(500);
+        return true;
+      });
+    });
+
+    it('429エラーの場合、正しいプロパティを持つApiErrorをthrowする', async () => {
+      server.use(errorHandlers.rateLimited);
+      const url = buildOpenWeatherForecastUrl('Tokyo');
+
+      await expect(fetchWeather(url)).rejects.toSatisfy((error: unknown) => {
+        expect(error).toBeInstanceOf(ApiError);
+        expect((error as ApiError).status).toBe(429);
+        return true;
+      });
     });
   });
 });

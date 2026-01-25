@@ -66,14 +66,13 @@ const convertToWeatherListItems = (
 export function WeatherPage() {
   const { cityId } = useParams<{ cityId: string }>();
   const city = getCityById(cityId ?? '');
-  const { data, isLoading, isError, error, refetch, isFetching } =
-    useWeather(cityId);
+  const { data, isError, error, refetch, isFetching } = useWeather(cityId);
 
   if (!city) {
     return <ErrorView message="都市が見つかりません" showRetryButton={false} />;
   }
 
-  if (isLoading || isFetching) {
+  if (isFetching) {
     return (
       <PageLayout>
         <p>読み込み中...</p>

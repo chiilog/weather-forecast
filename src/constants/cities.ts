@@ -6,3 +6,7 @@ export const CITIES: readonly City[] = [
   { id: 'oita', name: '大分', nameEn: 'Oita' },
   { id: 'hokkaido', name: '北海道', nameEn: 'Hokkaido' },
 ];
+
+export const getCityById = (id: string): City | undefined => {
+  return CITIES.find((city) => city.id === id);
+};

@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useWeather } from './useWeather';
-import type { CityId } from '../types/city';
 
 const createWrapper = () => {
   const queryClient = new QueryClient({
@@ -33,12 +32,9 @@ describe('useWeather', () => {
   });
 
   it('無効なcityIdの場合、クエリが無効になる', async () => {
-    const { result } = renderHook(
-      () => useWeather('invalid' as unknown as CityId),
-      {
-        wrapper: createWrapper(),
-      }
-    );
+    const { result } = renderHook(() => useWeather('invalid'), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.data).toBeUndefined();

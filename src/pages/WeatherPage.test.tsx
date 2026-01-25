@@ -43,11 +43,39 @@ describe('WeatherPage', () => {
     expect(await screen.findByText('東京の天気')).toBeInTheDocument();
   });
 
-  it('API取得エラー時はエラーメッセージを表示する', async () => {
+  it('401エラー時はAPIキーが無効である旨のメッセージを表示する', async () => {
+    server.use(errorHandlers.unauthorized);
+    renderWeatherPage('tokyo');
+    expect(
+      await screen.findByText('APIキーが無効です。設定を確認してください。')
+    ).toBeInTheDocument();
+  });
+
+  it('404エラー時は都市が見つからない旨のメッセージを表示する', async () => {
+    server.use(errorHandlers.notFound);
+    renderWeatherPage('tokyo');
+    expect(
+      await screen.findByText('指定された都市の天気情報が見つかりません。')
+    ).toBeInTheDocument();
+  });
+
+  it('429エラー時はレート制限超過の旨のメッセージを表示する', async () => {
+    server.use(errorHandlers.rateLimited);
+    renderWeatherPage('tokyo');
+    expect(
+      await screen.findByText(
+        'APIのリクエスト制限を超過しました。しばらく待ってから再度お試しください。'
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('500エラー時はサーバーエラーの旨のメッセージを表示する', async () => {
     server.use(errorHandlers.serverError);
     renderWeatherPage('tokyo');
     expect(
-      await screen.findByText('天気データの取得に失敗しました')
+      await screen.findByText(
+        'サーバーでエラーが発生しました。時間をおいて再度お試しください。'
+      )
     ).toBeInTheDocument();
   });
 

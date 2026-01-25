@@ -9,9 +9,17 @@ export function CityListItem({ city }: CityListItemProps) {
   return (
     <Link
       to={`/weather/${city.id}`}
-      className="block p-4 bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
+      className="group flex items-center justify-between p-4 bg-white border border-gray-200 hover:bg-blue-50 active:bg-blue-100 transition-colors duration-200"
     >
-      <span className="text-lg text-gray-800">{city.name}</span>
+      <span className="flex-1 text-lg text-blue-600 group-hover:text-blue-700 transition-colors duration-200">
+        {city.name}
+      </span>
+      <span
+        className="material-symbols-outlined text-blue-500 group-hover:text-blue-600 transition-colors duration-200"
+        aria-hidden="true"
+      >
+        chevron_right
+      </span>
     </Link>
   );
 }

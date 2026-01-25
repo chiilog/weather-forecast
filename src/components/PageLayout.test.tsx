@@ -20,7 +20,12 @@ describe('PageLayout', () => {
       </PageLayout>
     );
 
+    // 外側のdiv: 背景とパディング
     const layoutDiv = container.firstChild as HTMLElement;
     expect(layoutDiv).toHaveClass('min-h-screen', 'bg-gray-100', 'p-4');
+
+    // 内側のdiv: コンテンツの最大幅とセンタリング
+    const contentDiv = layoutDiv.firstChild as HTMLElement;
+    expect(contentDiv).toHaveClass('max-w-2xl', 'mx-auto');
   });
 });

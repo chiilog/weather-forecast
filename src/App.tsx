@@ -7,14 +7,6 @@ import { getCityById } from './constants/cities';
 import type { HeaderProps } from './types/header';
 
 const getHeaderProps = (pathname: string): HeaderProps => {
-  // ホーム画面
-  if (pathname === '/') {
-    return {
-      title: '天気予報アプリ',
-      showBackButton: false,
-    };
-  }
-
   // 天気画面
   const weatherMatch = matchPath('/weather/:cityId', pathname);
   if (weatherMatch) {

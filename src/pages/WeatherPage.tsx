@@ -9,6 +9,25 @@ import type {
 } from '../types/weather';
 
 /**
+ * ページ全体のレイアウトコンポーネント
+ */
+const PageLayout = ({ children }: { children: React.ReactNode }) => (
+  <div className="min-h-screen bg-gray-100 p-4">{children}</div>
+);
+
+/**
+ * エラー表示用のコンポーネント
+ */
+const ErrorView = ({ message }: { message: string }) => (
+  <PageLayout>
+    <p className="text-red-600">{message}</p>
+    <Link to="/" className="text-blue-600">
+      ← ホームへ戻る
+    </Link>
+  </PageLayout>
+);
+
+/**
  * 天気データからアイコンURLを生成する
  *
  * @param weather - 天気データ配列
@@ -60,39 +79,25 @@ export function WeatherPage() {
   const { data, isLoading, isError } = useWeather(cityId);
 
   if (!city) {
-    return (
-      <div className="min-h-screen bg-gray-100 p-4">
-        <p className="text-red-600">都市が見つかりません</p>
-        <Link to="/" className="text-blue-600">
-          ← ホームへ戻る
-        </Link>
-      </div>
-    );
+    return <ErrorView message="都市が見つかりません" />;
   }
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-100 p-4">
+      <PageLayout>
         <p>読み込み中...</p>
-      </div>
+      </PageLayout>
     );
   }
 
   if (isError || !data) {
-    return (
-      <div className="min-h-screen bg-gray-100 p-4">
-        <p className="text-red-600">天気データの取得に失敗しました</p>
-        <Link to="/" className="text-blue-600">
-          ← ホームへ戻る
-        </Link>
-      </div>
-    );
+    return <ErrorView message="天気データの取得に失敗しました" />;
   }
 
   const items = convertToWeatherListItems(data);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <PageLayout>
       <header className="mb-4 flex items-center gap-4">
         <Link to="/" className="text-blue-600 hover:text-blue-800">
           ← 戻る
@@ -102,6 +107,6 @@ export function WeatherPage() {
       <main>
         <WeatherList items={items} />
       </main>
-    </div>
+    </PageLayout>
   );
 }

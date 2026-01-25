@@ -4,12 +4,7 @@ import { PageLayout } from './components/PageLayout';
 import { HomePage } from './pages/HomePage';
 import { WeatherPage } from './pages/WeatherPage';
 import { getCityById } from './constants/cities';
-
-interface HeaderProps {
-  title: string;
-  showBackButton: boolean;
-  backTo?: string;
-}
+import type { HeaderProps } from './types/header';
 
 const getHeaderProps = (pathname: string): HeaderProps => {
   // ホーム画面

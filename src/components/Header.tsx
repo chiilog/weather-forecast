@@ -1,10 +1,5 @@
 import { Link } from 'react-router-dom';
-
-interface HeaderProps {
-  title: string;
-  showBackButton?: boolean;
-  backTo?: string;
-}
+import type { HeaderProps } from '../types/header';
 
 export const Header = ({
   title,

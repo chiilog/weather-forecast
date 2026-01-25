@@ -79,7 +79,7 @@ export function WeatherPage() {
     );
   }
 
-  if (isError) {
+  if (isError || !data) {
     return (
       <div className="min-h-screen bg-gray-100 p-4">
         <p className="text-red-600">天気データの取得に失敗しました</p>
@@ -90,7 +90,7 @@ export function WeatherPage() {
     );
   }
 
-  const items = convertToWeatherListItems(data!);
+  const items = convertToWeatherListItems(data);
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">

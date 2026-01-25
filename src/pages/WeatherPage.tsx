@@ -7,6 +7,33 @@ import type { WeatherApiResponse } from '../types/weather';
 import type { WeatherListItemProps } from '../types/weather';
 
 /**
+ * 天気データからアイコンURLを生成する
+ *
+ * @param weather - 天気データ配列
+ * @returns アイコンURL、データがない場合は空文字列
+ */
+const getWeatherIconUrl = (
+  weather: WeatherApiResponse['list'][0]['weather']
+): string => {
+  if (!weather || weather.length === 0) {
+    return '';
+  }
+  return `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
+};
+
+/**
+ * 天気の説明を取得する
+ *
+ * @param weather - 天気データ配列
+ * @returns 天気の説明、データがない場合は空文字列
+ */
+const getWeatherDescription = (
+  weather: WeatherApiResponse['list'][0]['weather']
+): string => {
+  return weather?.[0]?.description ?? '';
+};
+
+/**
  * OpenWeatherMap APIのレスポンスをWeatherListコンポーネント用の形式に変換する
  *
  * @param data - OpenWeatherMap APIのレスポンスデータ
@@ -21,9 +48,9 @@ const convertToWeatherListItems = (
 ): WeatherListItemProps[] => {
   return data.list.map((item) => ({
     dateTime: item.dt_txt,
-    iconUrl: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
+    iconUrl: getWeatherIconUrl(item.weather),
     temperature: Math.round(item.main.temp * 10) / 10,
-    description: item.weather[0].description,
+    description: getWeatherDescription(item.weather),
   }));
 };
 

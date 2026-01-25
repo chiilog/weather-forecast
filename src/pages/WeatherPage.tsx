@@ -2,7 +2,6 @@ import { useParams, Link } from 'react-router-dom';
 import { useWeather } from '../hooks/useWeather';
 import { WeatherList } from '../components/WeatherList';
 import { getCityById } from '../constants/cities';
-import type { CityId } from '../types/city';
 import type {
   WeatherApiResponse,
   WeatherForecastItem,
@@ -58,7 +57,7 @@ const convertToWeatherListItems = (
 export function WeatherPage() {
   const { cityId } = useParams<{ cityId: string }>();
   const city = getCityById(cityId ?? '');
-  const { data, isLoading, isError } = useWeather(cityId as CityId);
+  const { data, isLoading, isError } = useWeather(cityId);
 
   if (!city) {
     return (

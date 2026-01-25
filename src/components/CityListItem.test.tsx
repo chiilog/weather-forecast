@@ -29,4 +29,15 @@ describe('CityListItem', () => {
     const link = screen.getByRole('link', { name: '東京' });
     expect(link).toHaveAttribute('href', '/weather/tokyo');
   });
+
+  it('chevronアイコンが表示される', () => {
+    render(
+      <BrowserRouter>
+        <CityListItem city={mockCity} />
+      </BrowserRouter>
+    );
+    const chevron = screen.getByText('chevron_right');
+    expect(chevron).toBeInTheDocument();
+    expect(chevron).toHaveAttribute('aria-hidden', 'true');
+  });
 });

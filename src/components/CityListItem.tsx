@@ -11,7 +11,7 @@ export function CityListItem({ city }: CityListItemProps) {
       to={`/weather/${city.id}`}
       className="group flex items-center justify-between p-4 bg-white border border-gray-200 hover:bg-blue-50 active:bg-blue-100 transition-colors duration-200"
     >
-      <span className="flex-1 text-lg text-blue-600 group-hover:text-blue-700">
+      <span className="flex-1 text-lg text-blue-600 group-hover:text-blue-700 transition-colors duration-200">
         {city.name}
       </span>
       <span

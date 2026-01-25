@@ -29,17 +29,16 @@ export const Basic: Story = {
 
 /**
  * カードコンテンツを含むレイアウト
+ * PageLayoutがmax-widthとセンタリングを提供
  */
 export const WithCard: Story = {
   args: {
     children: (
-      <div className="max-w-md mx-auto">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold mb-2">カードタイトル</h2>
-          <p className="text-gray-600">
-            カード内のコンテンツです。PageLayoutは背景とパディングを提供します。
-          </p>
-        </div>
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-bold mb-2">カードタイトル</h2>
+        <p className="text-gray-600">
+          カード内のコンテンツです。PageLayoutは背景、パディング、max-width、センタリングを提供します。
+        </p>
       </div>
     ),
   },
@@ -47,11 +46,12 @@ export const WithCard: Story = {
 
 /**
  * 複数の要素を含むレイアウト
+ * PageLayoutがmax-widthとセンタリングを提供
  */
 export const WithMultipleElements: Story = {
   args: {
     children: (
-      <div className="max-w-2xl mx-auto space-y-4">
+      <div className="space-y-4">
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-bold mb-2">セクション1</h2>
           <p className="text-gray-600">最初のセクションのコンテンツ</p>

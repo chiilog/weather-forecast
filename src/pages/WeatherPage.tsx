@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useWeather } from '../hooks/useWeather';
 import { WeatherList } from '../components/WeatherList';
 import { ErrorView } from '../components/ErrorView';
+import { PageLayout } from '../components/PageLayout';
 import { getCityById } from '../constants/cities';
 import { getErrorMessage } from '../lib/errorMessages';
 import type {
@@ -9,13 +10,6 @@ import type {
   WeatherForecastItem,
   WeatherListItemProps,
 } from '../types/weather';
-
-/**
- * ページ全体のレイアウトコンポーネント
- */
-const PageLayout = ({ children }: { children: React.ReactNode }) => (
-  <div className="min-h-screen bg-gray-100 p-4">{children}</div>
-);
 
 /**
  * 天気データからアイコンURLを生成する

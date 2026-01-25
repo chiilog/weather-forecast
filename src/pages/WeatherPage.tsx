@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useWeather } from '../hooks/useWeather';
 import { WeatherList } from '../components/WeatherList';
+import { ErrorView } from '../components/ErrorView';
 import { getCityById } from '../constants/cities';
 import { getErrorMessage } from '../lib/errorMessages';
 import type {
@@ -14,18 +15,6 @@ import type {
  */
 const PageLayout = ({ children }: { children: React.ReactNode }) => (
   <div className="min-h-screen bg-gray-100 p-4">{children}</div>
-);
-
-/**
- * エラー表示用のコンポーネント
- */
-const ErrorView = ({ message }: { message: string }) => (
-  <PageLayout>
-    <p className="text-red-600">{message}</p>
-    <Link to="/" className="text-blue-600">
-      ← ホームへ戻る
-    </Link>
-  </PageLayout>
 );
 
 /**
@@ -77,13 +66,14 @@ const convertToWeatherListItems = (
 export function WeatherPage() {
   const { cityId } = useParams<{ cityId: string }>();
   const city = getCityById(cityId ?? '');
-  const { data, isLoading, isError, error } = useWeather(cityId);
+  const { data, isLoading, isError, error, refetch, isFetching } =
+    useWeather(cityId);
 
   if (!city) {
-    return <ErrorView message="都市が見つかりません" />;
+    return <ErrorView message="都市が見つかりません" showRetryButton={false} />;
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <PageLayout>
         <p>読み込み中...</p>
@@ -92,7 +82,13 @@ export function WeatherPage() {
   }
 
   if (isError || !data) {
-    return <ErrorView message={getErrorMessage(error)} />;
+    return (
+      <ErrorView
+        message={getErrorMessage(error)}
+        showRetryButton={true}
+        onRetry={refetch}
+      />
+    );
   }
 
   const items = convertToWeatherListItems(data);

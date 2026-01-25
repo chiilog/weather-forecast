@@ -2,9 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
+import { http, HttpResponse, delay } from 'msw';
 import { WeatherPage } from './WeatherPage';
 import { server } from '../mocks/server';
-import { errorHandlers } from '../mocks/handlers';
+import { errorHandlers, mockWeatherResponse } from '../mocks/handlers';
 
 const renderWeatherPage = (cityId: string) => {
   const queryClient = new QueryClient({
@@ -82,5 +84,54 @@ describe('WeatherPage', () => {
   it('無効なcityIDで「都市が見つかりません」を表示する', () => {
     renderWeatherPage('invalid');
     expect(screen.getByText('都市が見つかりません')).toBeInTheDocument();
+  });
+
+  it('エラー時にリトライボタンが表示される', async () => {
+    server.use(errorHandlers.serverError);
+    renderWeatherPage('tokyo');
+    expect(
+      await screen.findByRole('button', { name: '再試行' })
+    ).toBeInTheDocument();
+  });
+
+  it('リトライボタンをクリックすると再度API取得が実行される', async () => {
+    // 最初はエラー
+    server.use(errorHandlers.serverError);
+    renderWeatherPage('tokyo');
+
+    const retryButton = await screen.findByRole('button', { name: '再試行' });
+
+    // エラーハンドラーをリセットして成功レスポンスに戻す
+    server.resetHandlers();
+
+    // リトライボタンをクリック
+    await userEvent.click(retryButton);
+
+    // 成功時のデータが表示される
+    expect(await screen.findByText('2024-01-20 12:00:00')).toBeInTheDocument();
+  });
+
+  it('リトライ中は読み込み中が表示される', async () => {
+    server.use(errorHandlers.serverError);
+    renderWeatherPage('tokyo');
+
+    const retryButton = await screen.findByRole('button', { name: '再試行' });
+
+    // レスポンスを遅延させるハンドラーを設定
+    server.use(
+      http.get('https://api.openweathermap.org/data/2.5/forecast', async () => {
+        await delay(100);
+        return HttpResponse.json(mockWeatherResponse);
+      })
+    );
+
+    // リトライボタンをクリック
+    await userEvent.click(retryButton);
+
+    // ローディング状態が表示される
+    expect(screen.getByText('読み込み中...')).toBeInTheDocument();
+
+    // 成功時のデータが表示される
+    expect(await screen.findByText('2024-01-20 12:00:00')).toBeInTheDocument();
   });
 });

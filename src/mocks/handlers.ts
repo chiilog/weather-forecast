@@ -4,7 +4,7 @@ import type { WeatherApiResponse } from '../types/weather';
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 // モックデータ（OpenWeatherMap API 5 Day / 3 Hour Forecast の実際のレスポンス構造に準拠）
-const mockWeatherResponse: WeatherApiResponse = {
+export const mockWeatherResponse: WeatherApiResponse = {
   cod: '200',
   message: 0,
   cnt: 3,

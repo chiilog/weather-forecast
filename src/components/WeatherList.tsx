@@ -3,7 +3,7 @@ import { WeatherListItem } from './WeatherListItem';
 
 export function WeatherList({ items }: WeatherListProps) {
   return (
-    <div className="space-y-2">
+    <>
       {items.map((item, index) => (
         <WeatherListItem
           key={`${item.dateTime}-${index}`}
@@ -13,6 +13,6 @@ export function WeatherList({ items }: WeatherListProps) {
           description={item.description}
         />
       ))}
-    </div>
+    </>
   );
 }

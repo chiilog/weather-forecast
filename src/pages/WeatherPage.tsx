@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useWeather } from '../hooks/useWeather';
 import { WeatherList } from '../components/WeatherList';
 import { getCityById } from '../constants/cities';
+import { getErrorMessage } from '../lib/errorMessages';
 import type {
   WeatherApiResponse,
   WeatherForecastItem,
@@ -76,7 +77,7 @@ const convertToWeatherListItems = (
 export function WeatherPage() {
   const { cityId } = useParams<{ cityId: string }>();
   const city = getCityById(cityId ?? '');
-  const { data, isLoading, isError } = useWeather(cityId);
+  const { data, isLoading, isError, error } = useWeather(cityId);
 
   if (!city) {
     return <ErrorView message="都市が見つかりません" />;
@@ -91,7 +92,7 @@ export function WeatherPage() {
   }
 
   if (isError || !data) {
-    return <ErrorView message="天気データの取得に失敗しました" />;
+    return <ErrorView message={getErrorMessage(error)} />;
   }
 
   const items = convertToWeatherListItems(data);

@@ -4,15 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { HomePage } from './HomePage';
 
 describe('HomePage', () => {
-  it('タイトルが表示される', () => {
-    render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
-    );
-    expect(screen.getByText('天気予報アプリ')).toBeInTheDocument();
-  });
-
   it('地域リストが表示される', () => {
     render(
       <BrowserRouter>

@@ -45,6 +45,36 @@ describe('App - 結合テスト', () => {
     server.use(trackingHandler);
   });
 
+  describe('Header表示', () => {
+    it('ホーム画面でHeaderが表示される', () => {
+      renderApp();
+
+      // ヘッダータイトルが表示される
+      expect(
+        screen.getByRole('heading', { level: 1, name: '天気予報アプリ' })
+      ).toBeInTheDocument();
+
+      // 戻るボタンは表示されない
+      expect(screen.queryByLabelText('戻る')).not.toBeInTheDocument();
+    });
+
+    it('天気画面でHeaderが表示される', async () => {
+      renderApp();
+
+      // 1. 東京をクリックして天気画面へ遷移
+      const tokyoLink = screen.getByRole('link', { name: '東京' });
+      await userEvent.click(tokyoLink);
+
+      // 2. ヘッダータイトルが表示される
+      expect(
+        await screen.findByRole('heading', { level: 1, name: '東京の天気' })
+      ).toBeInTheDocument();
+
+      // 3. 戻るボタンが表示される
+      expect(screen.getByLabelText('戻る')).toBeInTheDocument();
+    });
+  });
+
   describe('画面遷移', () => {
     it('ホーム画面 → 天気画面へ遷移できる', async () => {
       renderApp();
@@ -71,8 +101,8 @@ describe('App - 結合テスト', () => {
       await userEvent.click(tokyoLink);
       expect(await screen.findByText('東京の天気')).toBeInTheDocument();
 
-      // 2. 「← 戻る」リンクをクリック
-      const backLink = screen.getByRole('link', { name: '← 戻る' });
+      // 2. 「戻る」リンクをクリック
+      const backLink = screen.getByRole('link', { name: '戻る' });
       await userEvent.click(backLink);
 
       // 3. ホーム画面に戻ることを確認
@@ -94,7 +124,7 @@ describe('App - 結合テスト', () => {
       expect(requestCount).toBe(1);
 
       // 3. ホームに戻る
-      const backLink = screen.getByRole('link', { name: '← 戻る' });
+      const backLink = screen.getByRole('link', { name: '戻る' });
       await userEvent.click(backLink);
       expect(await screen.findByText('天気予報アプリ')).toBeInTheDocument();
 

@@ -3,8 +3,11 @@ import { useWeather } from '../hooks/useWeather';
 import { WeatherList } from '../components/WeatherList';
 import { getCityById } from '../constants/cities';
 import type { CityId } from '../types/city';
-import type { WeatherApiResponse } from '../types/weather';
-import type { WeatherListItemProps } from '../types/weather';
+import type {
+  WeatherApiResponse,
+  WeatherForecastItem,
+  WeatherListItemProps,
+} from '../types/weather';
 
 /**
  * 天気データからアイコンURLを生成する
@@ -12,9 +15,7 @@ import type { WeatherListItemProps } from '../types/weather';
  * @param weather - 天気データ配列
  * @returns アイコンURL、データがない場合は空文字列
  */
-const getWeatherIconUrl = (
-  weather: WeatherApiResponse['list'][0]['weather']
-): string => {
+const getWeatherIconUrl = (weather: WeatherForecastItem['weather']): string => {
   if (!weather || weather.length === 0) {
     return '';
   }
@@ -28,7 +29,7 @@ const getWeatherIconUrl = (
  * @returns 天気の説明、データがない場合は空文字列
  */
 const getWeatherDescription = (
-  weather: WeatherApiResponse['list'][0]['weather']
+  weather: WeatherForecastItem['weather']
 ): string => {
   return weather?.[0]?.description ?? '';
 };
@@ -46,7 +47,7 @@ const getWeatherDescription = (
 const convertToWeatherListItems = (
   data: WeatherApiResponse
 ): WeatherListItemProps[] => {
-  return data.list.map((item) => ({
+  return data.list.map((item: WeatherForecastItem) => ({
     dateTime: item.dt_txt,
     iconUrl: getWeatherIconUrl(item.weather),
     temperature: Math.round(item.main.temp * 10) / 10,

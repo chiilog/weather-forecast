@@ -11,8 +11,8 @@ const DEFAULT_ERROR_MESSAGE =
   '通信エラーが発生しました。ネットワーク接続を確認してください。';
 
 export const getErrorMessage = (error: unknown): string => {
-  if (error instanceof ApiError) {
-    return ERROR_MESSAGES[error.status] ?? DEFAULT_ERROR_MESSAGE;
+  if (!(error instanceof ApiError)) {
+    return DEFAULT_ERROR_MESSAGE;
   }
-  return DEFAULT_ERROR_MESSAGE;
+  return ERROR_MESSAGES[error.status] ?? DEFAULT_ERROR_MESSAGE;
 };

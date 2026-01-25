@@ -37,4 +37,10 @@ describe('getErrorMessage', () => {
       '通信エラーが発生しました。ネットワーク接続を確認してください。'
     );
   });
+  it('定義されていないステータスコードを持つApiErrorの場合、デフォルトのエラーメッセージを返す', () => {
+    const error = new ApiError('Forbidden', 403);
+    expect(getErrorMessage(error)).toBe(
+      '通信エラーが発生しました。ネットワーク接続を確認してください。'
+    );
+  });
 });

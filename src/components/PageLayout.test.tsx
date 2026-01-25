@@ -14,7 +14,7 @@ describe('PageLayout', () => {
   });
 
   it('適切なクラス名を持つ', () => {
-    const { container } = render(
+    render(
       <PageLayout>
         <p>テストコンテンツ</p>
       </PageLayout>

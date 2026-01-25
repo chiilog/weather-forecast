@@ -1,8 +1,7 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useWeather } from '../hooks/useWeather';
 import { WeatherList } from '../components/WeatherList';
 import { ErrorView } from '../components/ErrorView';
-import { PageLayout } from '../components/PageLayout';
 import { getCityById } from '../constants/cities';
 import { getErrorMessage } from '../lib/errorMessages';
 import type {
@@ -67,11 +66,7 @@ export function WeatherPage() {
   }
 
   if (isFetching) {
-    return (
-      <PageLayout>
-        <p>読み込み中...</p>
-      </PageLayout>
-    );
+    return <p>読み込み中...</p>;
   }
 
   if (isError || !data) {
@@ -87,16 +82,8 @@ export function WeatherPage() {
   const items = convertToWeatherListItems(data);
 
   return (
-    <PageLayout>
-      <header className="mb-4 flex items-center gap-4">
-        <Link to="/" className="text-blue-600 hover:text-blue-800">
-          ← 戻る
-        </Link>
-        <h1 className="text-2xl font-bold text-gray-800">{city.name}の天気</h1>
-      </header>
-      <main>
-        <WeatherList items={items} />
-      </main>
-    </PageLayout>
+    <main>
+      <WeatherList items={items} />
+    </main>
   );
 }

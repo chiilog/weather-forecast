@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { PageLayout } from './PageLayout';
 
 interface ErrorViewProps {
   message: string;
@@ -15,7 +14,7 @@ export const ErrorView = ({
   showRetryButton,
   onRetry,
 }: ErrorViewProps) => (
-  <PageLayout>
+  <>
     <p className="text-red-600">{message}</p>
     <div className="mt-4">
       {showRetryButton && onRetry && (
@@ -30,5 +29,5 @@ export const ErrorView = ({
         ← ホームへ戻る
       </Link>
     </div>
-  </PageLayout>
+  </>
 );

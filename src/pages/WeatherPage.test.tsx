@@ -40,11 +40,6 @@ describe('WeatherPage', () => {
     expect(await screen.findByText('2024-01-20 12:00:00')).toBeInTheDocument();
   });
 
-  it('都市名が正しく表示される', async () => {
-    renderWeatherPage('tokyo');
-    expect(await screen.findByText('東京の天気')).toBeInTheDocument();
-  });
-
   it('401エラー時はAPIキーが無効である旨のメッセージを表示する', async () => {
     server.use(errorHandlers.unauthorized);
     renderWeatherPage('tokyo');

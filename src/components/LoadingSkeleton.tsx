@@ -6,7 +6,10 @@ interface LoadingSkeletonProps {
 
 export function WeatherSkeletonItem() {
   return (
-    <div className="bg-white border-b border-gray-200 p-4">
+    <div
+      className="bg-white border-b border-gray-200 p-4"
+      data-testid="weather-skeleton-item"
+    >
       <div className="h-5 w-40 bg-gray-300 rounded animate-pulse mb-1" />
 
       <div className="flex items-center justify-start gap-4">
@@ -23,7 +26,10 @@ export function WeatherSkeletonItem() {
 
 export function DateSkeletonLabel() {
   return (
-    <div className="bg-gray-200 px-4 py-2 border-b border-gray-200 mt-4 first:mt-0">
+    <div
+      className="bg-gray-200 px-4 py-2 border-b border-gray-200 mt-4 first:mt-0"
+      data-testid="date-skeleton-label"
+    >
       <div className="h-5 w-32 bg-gray-300 rounded animate-pulse" />
     </div>
   );

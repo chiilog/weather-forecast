@@ -12,20 +12,20 @@ describe('LoadingSkeleton', () => {
   });
 
   it('デフォルトで5つのアイテムが表示される', () => {
-    const { container } = render(<LoadingSkeleton />);
-    const items = container.querySelectorAll('.bg-white.border-b');
+    render(<LoadingSkeleton />);
+    const items = screen.getAllByTestId('weather-skeleton-item');
     expect(items).toHaveLength(5);
   });
 
   it('countプロパティで表示数を変更できる', () => {
-    const { container } = render(<LoadingSkeleton count={3} />);
-    const items = container.querySelectorAll('.bg-white.border-b');
+    render(<LoadingSkeleton count={3} />);
+    const items = screen.getAllByTestId('weather-skeleton-item');
     expect(items).toHaveLength(3);
   });
 
   it('日付ラベルが適切な位置に表示される', () => {
-    const { container } = render(<LoadingSkeleton />);
-    const dateLabels = container.querySelectorAll('.bg-gray-200.px-4.py-2');
+    render(<LoadingSkeleton />);
+    const dateLabels = screen.getAllByTestId('date-skeleton-label');
     expect(dateLabels).toHaveLength(2);
   });
 });

@@ -14,15 +14,16 @@ export function WeatherList({ items }: WeatherListProps) {
         );
 
         return (
-          <div key={`${item.dateTime}-${index}`}>
+          <>
             {showDateLabel && <DateLabel dateTime={item.dateTime} />}
             <WeatherListItem
               dateTime={item.dateTime}
               iconUrl={item.iconUrl}
               temperature={item.temperature}
               description={item.description}
+              key={`${item.dateTime}-${index}`}
             />
-          </div>
+          </>
         );
       })}
     </>

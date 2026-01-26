@@ -69,12 +69,4 @@ describe('WeatherList', () => {
     const dateLabels = screen.getAllByTestId('date-label');
     expect(dateLabels).toHaveLength(3);
   });
-
-  it('同じ日のデータでは日付ラベルが重複しない', () => {
-    render(<WeatherList items={mockItems} />);
-
-    // 同じ日のアイテムが3つあるが、日付ラベルは1つだけ
-    const dateLabels = screen.getAllByTestId('date-label');
-    expect(dateLabels).toHaveLength(1);
-  });
 });

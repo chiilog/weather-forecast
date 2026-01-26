@@ -40,7 +40,7 @@ export function LoadingSkeleton({ count = 5 }: LoadingSkeletonProps) {
     <div role="status" aria-live="polite" aria-label="読み込み中">
       {Array.from({ length: count }).map((_, index) => (
         <Fragment key={index}>
-          {(index === 0 || index === 3) && <DateSkeletonLabel />}
+          {index % 4 === 0 && <DateSkeletonLabel />}
           <WeatherSkeletonItem />
         </Fragment>
       ))}

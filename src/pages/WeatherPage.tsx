@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useWeather } from '../hooks/useWeather';
 import { WeatherList } from '../components/WeatherList';
 import { ErrorView } from '../components/ErrorView';
+import { LoadingSkeleton } from '../components/LoadingSkeleton';
 import { getCityById } from '../constants/cities';
 import { getErrorMessage } from '../lib/errorMessages';
 import type {
@@ -66,7 +67,11 @@ export function WeatherPage() {
   }
 
   if (isFetching) {
-    return <p>読み込み中...</p>;
+    return (
+      <main>
+        <LoadingSkeleton />
+      </main>
+    );
   }
 
   if (isError || !data) {

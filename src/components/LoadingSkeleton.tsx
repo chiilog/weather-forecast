@@ -36,9 +36,11 @@ export function DateSkeletonLabel() {
 }
 
 export function LoadingSkeleton({ count = 5 }: LoadingSkeletonProps) {
+  const safeCount = Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
+
   return (
     <div role="status" aria-live="polite" aria-label="読み込み中">
-      {Array.from({ length: count }).map((_, index) => (
+      {Array.from({ length: safeCount }).map((_, index) => (
         <Fragment key={index}>
           {index % 4 === 0 && <DateSkeletonLabel />}
           <WeatherSkeletonItem />

@@ -29,9 +29,11 @@ const renderWeatherPage = (cityId: string) => {
 };
 
 describe('WeatherPage', () => {
-  it('ローディング中は「読み込み中...」を表示する', async () => {
+  it('ローディング中はスケルトンを表示する', async () => {
     renderWeatherPage('tokyo');
-    expect(screen.getByText('読み込み中...')).toBeInTheDocument();
+    expect(
+      screen.getByRole('status', { name: '読み込み中' })
+    ).toBeInTheDocument();
   });
 
   it('データ取得成功時は天気リストを表示する', async () => {
@@ -123,8 +125,10 @@ describe('WeatherPage', () => {
     // リトライボタンをクリック
     await userEvent.click(retryButton);
 
-    // ローディング状態が表示される
-    expect(screen.getByText('読み込み中...')).toBeInTheDocument();
+    // ローディング状態（スケルトン）が表示される
+    expect(
+      screen.getByRole('status', { name: '読み込み中' })
+    ).toBeInTheDocument();
 
     // 成功時のデータが表示される
     expect(await screen.findByText('2024-01-20 12:00:00')).toBeInTheDocument();

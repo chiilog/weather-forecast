@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import type { WeatherListProps } from '../types/weather';
 import { WeatherListItem } from './WeatherListItem';
 import { DateLabel } from './DateLabel';
@@ -14,16 +15,15 @@ export function WeatherList({ items }: WeatherListProps) {
         );
 
         return (
-          <>
+          <Fragment key={`${item.dateTime}-${index}`}>
             {showDateLabel && <DateLabel dateTime={item.dateTime} />}
             <WeatherListItem
               dateTime={item.dateTime}
               iconUrl={item.iconUrl}
               temperature={item.temperature}
               description={item.description}
-              key={`${item.dateTime}-${index}`}
             />
-          </>
+          </Fragment>
         );
       })}
     </>

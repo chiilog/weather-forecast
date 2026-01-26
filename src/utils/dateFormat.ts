@@ -39,9 +39,9 @@ export const getDateRelation = (
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
   const target = new Date(
-    targetDate.getFullYear(),
-    targetDate.getMonth(),
-    targetDate.getDate()
+    targetDate.getUTCFullYear(),
+    targetDate.getUTCMonth(),
+    targetDate.getUTCDate()
   );
 
   if (target.getTime() === today.getTime()) {
